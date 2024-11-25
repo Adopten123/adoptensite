@@ -19,6 +19,13 @@ data_db = [
     {'id': 7, 'title': 'Golang', 'content': 'Info about Golang', 'is_published': True},
 ]
 
+categories_db = [
+    {'id': 1, 'name': 'Artificial Intelligence'},
+    {'id': 2, 'name': 'Machine Learning'},
+    {'id': 3, 'name': 'Machine Languages'},
+    {'id': 4, 'name': 'Programming Languages'},
+]
+
 class MyClass:
     def __init__(self, a, b):
         self.a = a
@@ -26,7 +33,7 @@ class MyClass:
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html", {"title": 'Main Page'})
+    return render(request, "main/index.html", {"title": 'Main Page'})
 
 def test1(request):
     #t = render_to_string('main/index.html')
@@ -37,6 +44,7 @@ def test1(request):
             'set': {1, 2, 3, 4, 5},
             'dict': {'key_1': 'value_1', 'key_2': 'value_2'},
             'obj': MyClass(10,20),
+            'category_selected': 0,
             }
     return render(request, 'main/index.html', context=data)
 
@@ -78,5 +86,12 @@ def archive(request, year):
         return redirect(uri)
     return HttpResponse(f"<h1> Archive </h1> <p>year: {year}</p>")
 
+def show_category(request, category_id):
+    data = {'title': 'Rubrics',
+            'menu': menu,
+            'posts': data_db,
+            'category_selected': category_id,
+            }
+    return render(request, 'main/index.html', context=data)
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1> Page Not Found! </h1>")

@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('categories/<int:category_id>/', views.categories, name='categories'),
     path('categories/<slug:category_slug>/', views.categories_by_slug, name='categories_by_slug'),
+    path('category/<int:category_id>/', views.show_category, name='category'),
     path('languages/<str:language_slug>/', views.language, name='languages'),
     path('archive/<year4:year>/', views.archive, name='archive'),
 ]

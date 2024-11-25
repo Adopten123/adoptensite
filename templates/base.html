@@ -1,4 +1,6 @@
 {% load static %}
+{% load adopten_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,12 +32,16 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
-		<li class="selected">All categories</li>
-		<li><a href="#">AI</a></li>
-		<li><a href="#">Machine Learning</a></li>
-		<li><a href="#">Machine Languages</a></li>
-        <li><a href="#">Programming</a></li>
-		<li class="share">
+
+        {% if category_selected == 0 or category_selected is None %}
+        <li class="selected">All categories</li>
+        {% else %}
+            <li><a href="{% url 'home' %}">All categories</a></li>
+        {% endif %}
+
+        {% show_categories category_selected %}
+
+        <li class="share">
 		<p>Our Channel</p>
 		<a class="share-yt" href="https://www.youtube.com/@adopten6755" target="_blank" rel="nofollow"></a>
 		</li>
