@@ -13,6 +13,7 @@ urlpatterns = [
     path('categories/<int:category_id>/', views.categories, name='categories'),
     path('categories/<slug:category_slug>/', views.categories_by_slug, name='categories_by_slug'),
     path('category/<int:category_id>/', views.show_category, name='category'),
+    path('post/<slug:post_slug>/', views.show_post, name='post'),
     path('languages/<str:language_slug>/', views.language, name='languages'),
     path('archive/<year4:year>/', views.archive, name='archive'),
 ]

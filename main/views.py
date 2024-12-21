@@ -1,7 +1,11 @@
+from gc import get_objects
+
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
+
+from main.models import ProgrammingLanguage
 
 menu = [
     {'title' : 'About', 'url_name' : 'about'},
@@ -49,9 +53,10 @@ def test1(request):
     return render(request, 'main/index.html', context=data)
 
 def test2(request):
+    posts = ProgrammingLanguage.published.all()
     data = {'title': 'Main Page',
             'menu': menu,
-            'posts': data_db,
+            'posts': posts,
             }
     return render(request, 'main/index.html', context=data)
 
@@ -93,5 +98,15 @@ def show_category(request, category_id):
             'category_selected': category_id,
             }
     return render(request, 'main/index.html', context=data)
+
+def show_post(request, post_slug):
+    post = get_object_or_404(ProgrammingLanguage, slug=post_slug)
+    data = {'title': post.title,
+            'menu': menu,
+            'post': post,
+            'category_selected': 1,
+    }
+    return render(request, 'main/post.html', context=data)
+
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1> Page Not Found! </h1>")
